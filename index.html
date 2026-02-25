@@ -157,12 +157,12 @@
       user-select: none;
     }
     img.redacted {
-  filter: brightness(0);
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-  pointer-events: none; /* prevents right-click saving */
-}
+      filter: brightness(0);
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+      pointer-events: none;
+    }
 
     /* ── HOME PAGE ── */
     #page-home h1 { font-family: 'Cinzel', serif; letter-spacing: 0.1em; margin: 12px 0 4px; }
@@ -231,12 +231,19 @@
     .status.classified { background: black; color: black; border: none; user-select: none; }
 
     /* ── DATABASE PAGE ── */
+    .db-table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
     .db-table {
       width: 100%;
       max-width: 720px;
       border-collapse: collapse;
       margin-top: 12px;
       font-size: 0.95rem;
+      min-width: 500px;
     }
 
     .db-table th {
@@ -263,6 +270,14 @@
     .threat-high   { color: #c03030; font-weight: 700; }
     .threat-leathal {color black; font-weight: 700;}
     .threat-unknown { color: black; background: black; user-select: none; font-weight: 700; }
+
+    /* FILE IMAGES */
+    #page-database .file-images img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
 
     /* ── CONTACT PAGE ── */
     .contact-block {
@@ -375,6 +390,8 @@
       overflow: hidden;
       color: white;
       margin-top: auto;
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
     footer::before {
@@ -398,6 +415,136 @@
     }
 
     footer a:hover { color: white; }
+
+    /* ── RESPONSIVE BREAKPOINTS ── */
+
+    /* Tablet */
+    @media (max-width: 768px) {
+      body { border-width: 3px; }
+
+      header {
+        padding: 14px 20px;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .home-link {
+        justify-content: center;
+      }
+
+      nav {
+        justify-content: center;
+        gap: 16px;
+      }
+
+      .logo-img {
+        width: 56px;
+        height: 56px;
+      }
+
+      .brand-text span { font-size: 1rem; }
+      .brand-text span:nth-child(2) { font-size: 0.9rem; }
+      .brand-text span:nth-child(3) { font-size: 0.82rem; }
+
+      .page { padding: 14px; }
+
+      #page-cases h2, #page-database h2, #page-contact h2, #page-hinder h2 {
+        font-size: 1.3rem;
+      }
+
+      .cases-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hinder-grid {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+      }
+
+      .contact-block {
+        max-width: 100%;
+        padding: 16px;
+      }
+
+      footer {
+        padding: 14px 20px;
+        flex-direction: column;
+        text-align: center;
+        gap: 6px;
+      }
+
+      /* Home page tables */
+      #page-home table {
+        width: 100% !important;
+      }
+
+      table[style*="background-color: #8B0000"] {
+        width: 100% !important;
+      }
+    }
+
+    /* Mobile */
+    @media (max-width: 480px) {
+      body { border-width: 2px; }
+
+      header {
+        padding: 12px 14px;
+        gap: 10px;
+      }
+
+      .logo-img {
+        width: 46px;
+        height: 46px;
+      }
+
+      .brand-text span { font-size: 0.88rem; }
+      .brand-text span:nth-child(2) { font-size: 0.8rem; }
+      .brand-text span:nth-child(3) { font-size: 0.72rem; }
+
+      nav {
+        gap: 12px;
+      }
+
+      nav a {
+        font-size: 0.82rem;
+      }
+
+      .page { padding: 10px; }
+
+      #page-cases h2, #page-database h2, #page-contact h2, #page-hinder h2 {
+        font-size: 1.1rem;
+      }
+
+      .db-table {
+        font-size: 0.8rem;
+        min-width: 420px;
+      }
+
+      .db-table th, .db-table td {
+        padding: 7px 10px;
+      }
+
+      .case-card {
+        padding: 12px;
+      }
+
+      .hinder-letter {
+        font-size: 2rem;
+      }
+
+      .contact-block {
+        padding: 12px;
+      }
+
+      .submit-btn {
+        width: 100%;
+        padding: 12px;
+      }
+
+      footer {
+        padding: 12px 14px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -440,14 +587,13 @@
       </tr>
     </table>
     <br>
-    <h1>CLASSIFIED</h1>
+    <h1>LIST</h1>
     <hr class="new1">
-    <table style="border:solid black 2px; max-width:500px; margin:5px; padding:10px;">
+    <table style="border:solid black 2px; width:500px; max-width:100%; margin:5px; padding:10px;">
       <tr><td><b>There are <span class="redacted">09</span> known "Mimic" types:</b></td></tr>
       <tr>
         <td>
           <ul style="padding:10px; padding-left:24px;">
-            
             <li><span class="redacted">The God</span></li>
             <li>Mimic</li>
             <li>Doppelgänger</li>
@@ -457,14 +603,13 @@
             <li>Duplicate</li>
             <li>Tree Hugger</li>
             <li><span class="redacted">MOLD</span></li>
-            
           </ul>
         </td>
       </tr>
     </table>
     <h1>READ</h1>
     <hr class="new1">
-    <table style="background-color: #8B0000; border: 2px solid black;">
+    <table style="background-color: #8B0000; border: 2px solid black; max-width: 100%;">
       <tr>
         <td>
           <nav>
@@ -570,97 +715,99 @@ Mx mw aexglmrk qi. Mx mw nyhkmrk qi. M lezi rs jviihsq, M jiip xvettih. M aerx x
     <h2>M.D.D. database</h2>
     <p style="max-width:640px; line-height:1.7; margin-bottom:4px;">Catalogued Mimic classifications as recorded by MDD field agents. Threat levels are approximate. Exercise extreme caution when encountering any of the following.</p>
     <br>
-    <table class="db-table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Classification</th>
-          <th>Primary Behavior</th>
-          <th>Threat Level</th>
-          <th>First Documented</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>01</td>
-          <td><strong>Mimic</strong></td>
-          <td>Copies the appearance and voice of known individuals.</td>
-          <td class="threat-high">HIGH</td>
-          <td>1987</td>
-        </tr>
-        <tr>
-          <td>02</td>
-          <td><strong>Doppelgänger</strong></td>
-          <td>Near-perfect biological duplicate. Difficult to distinguish. Makes incoherent noises.</td>
-          <td class="threat-high">HIGH</td>
-          <td>2001</td>
-        </tr>
-        <tr>
-          <td>03</td>
-          <td><strong>Preacher</strong></td>
-          <td>Spreads influence through speech. May have psychic properties. TEARS FACE OFF AND USES IT AS ITS OWN.</td>
-          <td class="threat-leathal">LETHAL</td>
-          <td>2015</td>
-        </tr>
-        <tr>
-          <td>04</td>
-          <td><strong>Clusters</strong></td>
-          <td>Releases toxin <span class="redacted">Virus-M</span> when touched instantly, there is no cure.</td>
-          <td class="threat-unknown">██████</td>
-          <td><span class="redacted">████</span></td>
-        </tr>
-        <tr>
-          <td>05</td>
-          <td><strong>Inhuman</strong></td>
-          <td>Tall, lengthy entity that feeds using it's cup-like hands (NO ONE KNOWS HOW).</td>
-          <td class="threat-high">HIGH</td>
-          <td>1995</td>
-        </tr>
-        <tr>
-          <td>06</td>
-          <td><strong>Duplicate</strong></td>
-          <td>Copies appearance of a random household item and takes its place, (HARMLESS) (NOT CONFIRMED LIVING)</td>
-          <td class="threat-low">LOW</td>
-          <td>2007</td>
-        </tr>
-        <tr>
-          <td>07</td>
-          <td><strong>Tree Hugger</strong></td>
-          <td>Blends with natural environments. Difficult to detect in rural areas.</td>
-          <td class="threat-medium">MEDIUM</td>
-          <td>2022</td>
-        </tr>
-        <tr>
-          <td>08</td>
-          <td><strong>Xli Qsph</strong></td>
-          <td>All mimic life seems to stem from the tentrals of <span class="redacted">the Mold</span>. <span class="redacted">The Mold</span> is the most dangerous type of "mimic" discovered until the discovery of <span class="redacted">the God.</span> Turns out, <span class="redacted">the Mold</span> was created by <span class="redacted">The God</span>. This means that this type of mimic is not the most deadly type, and there is one more that transcends humanity.</td>
-          <td class="threat-leathal">LETHAL</td>
-          <td><span class="redacted">████</span></td>
-        </tr>
-        <tr>
-          <td>00</td>
-          <td><span class="redacted">The God</span></td>
-          <td><span class="redacted">The highest rank of any living thing. This spiritual entity's motives are unknown and undocumented.</span></td>
-          <td class="threat-leathal">L<span class="redacted">ORD</span></td>
-          <td> ~ <span class="redacted">4000</span> – <span class="redacted">3000</span> BC.</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="db-table-wrapper">
+      <table class="db-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Classification</th>
+            <th>Primary Behavior</th>
+            <th>Threat Level</th>
+            <th>First Documented</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>01</td>
+            <td><strong>Mimic</strong></td>
+            <td>Copies the appearance and voice of known individuals.</td>
+            <td class="threat-high">HIGH</td>
+            <td>1987</td>
+          </tr>
+          <tr>
+            <td>02</td>
+            <td><strong>Doppelgänger</strong></td>
+            <td>Near-perfect biological duplicate. Difficult to distinguish. Makes incoherent noises.</td>
+            <td class="threat-high">HIGH</td>
+            <td>2001</td>
+          </tr>
+          <tr>
+            <td>03</td>
+            <td><strong>Preacher</strong></td>
+            <td>Spreads influence through speech. May have psychic properties. TEARS FACE OFF AND USES IT AS ITS OWN.</td>
+            <td class="threat-leathal">LETHAL</td>
+            <td>2015</td>
+          </tr>
+          <tr>
+            <td>04</td>
+            <td><strong>Clusters</strong></td>
+            <td>Releases toxin <span class="redacted">Virus-M</span> when touched instantly, there is no cure.</td>
+            <td class="threat-unknown">██████</td>
+            <td><span class="redacted">████</span></td>
+          </tr>
+          <tr>
+            <td>05</td>
+            <td><strong>Inhuman</strong></td>
+            <td>Tall, lengthy entity that feeds using it's cup-like hands (NO ONE KNOWS HOW).</td>
+            <td class="threat-high">HIGH</td>
+            <td>1995</td>
+          </tr>
+          <tr>
+            <td>06</td>
+            <td><strong>Duplicate</strong></td>
+            <td>Copies appearance of a random household item and takes its place, (HARMLESS) (NOT CONFIRMED LIVING)</td>
+            <td class="threat-low">LOW</td>
+            <td>2007</td>
+          </tr>
+          <tr>
+            <td>07</td>
+            <td><strong>Tree Hugger</strong></td>
+            <td>Blends with natural environments. Difficult to detect in rural areas.</td>
+            <td class="threat-medium">MEDIUM</td>
+            <td>2022</td>
+          </tr>
+          <tr>
+            <td>08</td>
+            <td><strong>Xli Qsph</strong></td>
+            <td>All mimic life seems to stem from the tentrals of <span class="redacted">the Mold</span>. <span class="redacted">The Mold</span> is the most dangerous type of "mimic" discovered until the discovery of <span class="redacted">the God.</span> Turns out, <span class="redacted">the Mold</span> was created by <span class="redacted">The God</span>. This means that this type of mimic is not the most deadly type, and there is one more that transcends humanity.</td>
+            <td class="threat-leathal">LETHAL</td>
+            <td><span class="redacted">████</span></td>
+          </tr>
+          <tr>
+            <td>00</td>
+            <td><span class="redacted">The God</span></td>
+            <td><span class="redacted">The highest rank of any living thing. This spiritual entity's motives are unknown and undocumented.</span></td>
+            <td class="threat-leathal">L<span class="redacted">ORD</span></td>
+            <td> ~ <span class="redacted">4000</span> – <span class="redacted">3000</span> BC.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <br>
     <br>
     <h2>FILE IMAGES</h2>
     <hr class="new1">
-    <div style="text-align: center">
-    <img src="https://i.postimg.cc/Z5js1fjG/1.png">
+    <div class="file-images" style="text-align: center">
+      <img src="https://i.postimg.cc/Z5js1fjG/1.png">
       <br>
-    <img src="https://i.postimg.cc/rwgZvhQc/2.png">
+      <img src="https://i.postimg.cc/rwgZvhQc/2.png">
       <br>
-    <img src="https://i.postimg.cc/qvQD9mjJ/3.png">
+      <img src="https://i.postimg.cc/qvQD9mjJ/3.png">
       <br>
-    <img src="https://i.postimg.cc/L8vQryNH/4.png">
+      <img src="https://i.postimg.cc/L8vQryNH/4.png">
       <br>
       <span class="redacted">
-    <img class="redacted" src="https://i.postimg.cc/g24tfMNG/5.png">
+        <img class="redacted" src="https://i.postimg.cc/g24tfMNG/5.png">
       </span>
       <br>
     </div>
@@ -751,20 +898,15 @@ Mx mw aexglmrk qi. Mx mw nyhkmrk qi. M lezi rs jviihsq, M jiip xvettih. M aerx x
   <!--JAVASCRIPT-->
   <script>
     function showPage(id) {
-      // Hide all pages
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      // Remove active from all nav links
       document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
 
-      // Show selected page
       var target = document.getElementById('page-' + id);
       if (target) target.classList.add('active');
 
-      // Highlight nav link
       var navLink = document.getElementById('nav-' + id);
       if (navLink) navLink.classList.add('active');
 
-      // Scroll to top
       window.scrollTo(0, 0);
     }
   </script>
